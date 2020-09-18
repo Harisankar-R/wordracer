@@ -1,6 +1,6 @@
 package com.codingnirvana.wordracer
 
-import com.codingnirvana.wordracer.impl.{Board, TestWordRacer, enhanced}
+import com.codingnirvana.wordracer.impl.{Board, MyWordRacer}
 
 import scala.util.Random
 
@@ -13,18 +13,11 @@ object LocalTester {
     val stream = getClass.getResourceAsStream("/words.dat")
     val words = scala.io.Source.fromInputStream(stream).getLines.toIndexedSeq.sorted
 
-    var firstBoard = Board(IndexedSeq.fill(7,7)('*'), words)
-    var secondBoard = Board(IndexedSeq.fill(7,7)('*'), words)
-
-//    val player1 = new DemoWordRacer(words)
-//    val player2 = new DemoWordRacer(words)
-//    val player2 = new enhanced(words)
-
-//    val player1 = new MyWordRacer(words)
-    val player1 = new enhanced(words)
-//    val player1 = new TestWordRacer(words)
-//    val player2 = new MyWordRacer(words)
-    val player2 = new TestWordRacer(words)
+    var firstBoard = Board(IndexedSeq.fill(7, 7)('*'), words)
+    var secondBoard = Board(IndexedSeq.fill(7, 7)('*'), words)
+    
+    val player1 = new MyWordRacer(words)
+    val player2 = new MyWordRacer(words)
 
     player1.initGameBoard(startingLetter)
     player2.initGameBoard(startingLetter)
@@ -56,7 +49,7 @@ object LocalTester {
 
     println("Player 2 Board")
     println(secondBoard.displayBoardWithScore())
-    println(System.currentTimeMillis()-time)
+    println(System.currentTimeMillis() - time)
     System.exit(1)
   }
 
