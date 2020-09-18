@@ -1,0 +1,25 @@
+players:
+  - name: DemoWordRacer
+    language: Scala
+    directory: demo
+    command: java -jar wordracer-scala-demo.jar
+  - name: ZRacer
+    language: Java
+    directory: demo
+    command: java -jar demowordracer-1.0-SNAPSHOT.jar Z
+  # - name: PyBot
+  #   language: Python
+  #   directory: pybot
+  #   command: python wordracer.py
+  - name: VBot
+    language: C++
+    directory: vbot
+    command: ./wordracer
+  - name: AshBot
+    language: Java
+    directory: ashbot
+    command: java -jar wordracer-1.0-SNAPSHOT.jar
+  - name: Harisankar
+    language: Java
+    directory: demo
+    command: java -jar wordracer-scala-Harisankar.jar
