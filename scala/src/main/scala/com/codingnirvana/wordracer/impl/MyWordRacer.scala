@@ -7,7 +7,7 @@ import scala.util.matching.Regex
 
 case class CharToCellMap(char: Char, cellId: Int)
 
-class HarisankarWordRacer(words: IndexedSeq[String]) extends WordRacer {
+class MyWordRacer(words: IndexedSeq[String]) extends WordRacer {
 
   var board: Board = Board(IndexedSeq.fill(7, 7)('*'), words)
 
