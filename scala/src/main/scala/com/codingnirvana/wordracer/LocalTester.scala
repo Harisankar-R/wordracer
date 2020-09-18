@@ -15,7 +15,7 @@ object LocalTester {
 
     var firstBoard = Board(IndexedSeq.fill(7, 7)('*'), words)
     var secondBoard = Board(IndexedSeq.fill(7, 7)('*'), words)
-    
+
     val player1 = new MyWordRacer(words)
     val player2 = new MyWordRacer(words)
 
