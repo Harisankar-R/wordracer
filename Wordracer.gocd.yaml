@@ -1,0 +1,80 @@
+format_version: 3
+pipelines:
+  Wordracer:
+    group: defaultGroup
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      git:
+        git: https://github.com/Harisankar-R/wordracer
+        shallow_clone: false
+        auto_update: true
+        branch: master
+    stages:
+    - Test:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          run-unit-test:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - test
+                command: sbt
+                working_directory: ./scala
+                run_if: passed
+    - build:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          build-jar:
+            timeout: 0
+            artifacts:
+            - build:
+                source: scala/target/scala-2.12/wordracer-scala-my-name.jar
+                destination: ''
+            tasks:
+            - exec:
+                arguments:
+                - assembly
+                command: sbt
+                working_directory: ./scala
+                run_if: passed
+    - visualizer:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          copy-jar:
+            timeout: 0
+            artifacts:
+            - build:
+                source: visualizer/run/results
+                destination: ''
+            tasks:
+            - fetch:
+                is_file: true
+                source: wordracer-scala-my-name.jar
+                destination: visualizer/run/harisankar
+                pipeline: Wordracer
+                stage: build
+                job: build-jar
+                artifact_origin: gocd
+                run_if: passed
+            - exec:
+                command: ./tournament.sh
+                working_directory: visualizer
+                run_if: passed
